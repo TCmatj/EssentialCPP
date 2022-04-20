@@ -3,12 +3,14 @@
 using namespace std;
 
 int main(){
-    string user_name;
-    cout << "Please enter your first name:";
-    cin  >> user_name;
+    string first_name,last_name;
+    cout << "Please enter your first name and last name:";
+    cin  >> first_name >> last_name;
     cout << '\n'
          << "Hello,"
-         << user_name
+         << first_name
+         << ' '
+         << last_name
          << " ... and goodbye!\n";
         // system("pause");
          return 0;
