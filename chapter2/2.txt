@@ -1,0 +1,41 @@
+01 编写函数
+    返回类型；函数名；参数列表；函数体
+
+02 传值与传址
+    (0) pass by value 赋值一个值，原值不会改变
+    (1) pass by reference 传地址，原值会改变
+        与指针的区别：指针可以为空，引用不会是空
+03 动态内存管理
+    (0) new
+    由堆中分配出一个类型为int的对象，如：int *pi;
+        pi = new int;或pi = new int(1024)
+    从堆中分配数组，如: int *pia = new int[24];
+    (1) delete释放内存
+    delete pi;//释放pi所指的对象
+    delete [] pi;//删除数组中的所有对象
+
+04 提供默认参数值
+    (0) 提供默认值的都在右侧，且由此开始的参数都必须有默认值
+    (1) 定义默认值只能定义一次
+        在声明处定义可以有高可见性
+
+05 局部静态对象
+    (0) 文件局部对象会打乱不同函数之间的独立性，使他们难以理解
+    (1) 使用static
+        函数中定义static vector<int> elems;则可以安全地返回elem的地址
+
+06 inline函数
+    (0) 为了消除函数调用的时空开销，在编译时将函数调用处用函数体替换,类似于C语言中的宏展开
+        这种在函数调用处直接嵌入函数体的函数称为内联函数（Inline Function）
+    (1) 一般只将那些短小的、频繁调用的函数声明为内联函数
+
+07 函数重载
+    (0) 根据函数调用参数列表区分调用的函数
+    (1) 例子：
+        void display(char ch);
+        void display(const string&);
+        void display(const string&, int);
+        void display(const string&, int, int );
+
+08 模板函数
+    (0) 
