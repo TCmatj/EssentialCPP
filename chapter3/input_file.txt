@@ -1,0 +1,28 @@
+std::cin >> data1.bookNo >> data1.units_sold >> price;
+uses the dot operator (§ 1.5.2, p. 23) to read into the bookNo and units_sold
+members of the object named data1.
+The last statement assigns the product of data1.units_sold and price into the
+revenue member of data1.
+Our program will next repeat the same code to read data into data2:
+Click here to view code image
+// read the second transaction
+std::cin >> data2.bookNo >> data2.units_sold >> price;
+data2.revenue = data2.units_sold * price;
+Printing the Sum of Two Sales_data Objects
+Our other task is to check that the transactions are for the same ISBN. If so, we’ll print
+their sum, otherwise, we’ll print an error message:
+Click here to view code image
+if (data1.bookNo == data2.bookNo) { unsigned totalCnt = data1.units_sold + data2.units_sold; double totalRevenue = data1.revenue + data2.revenue;
+ // print: ISBN, total sold, total revenue, average price per book
+ std::cout << data1.bookNo << " " << totalCnt << " " << totalRevenue << " "; if (totalCnt != 0) std::cout << totalRevenue/totalCnt << std::endl; else std::cout << "(no sales)" << std::endl;
+ return 0; // indicate success
+} else { // transactions weren't for the same ISBN
+ std::cerr << "Data must refer to the same ISBN" << std::endl;
+ return -1; // indicate failure
+}
+In the first if we compare the bookNo members of data1 and data2. If those
+members are the same ISBN, we execute the code inside the curly braces. That code
+adds the components of our two variables. Because we’ll need to print the average
+price, we start by computing the total of units_sold and revenue and store those
+in totalCnt and totalRevenue, respectively. We print those values. Next we check
+that there were books sold and, if so, print the computed average price per book. 
