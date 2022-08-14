@@ -10,7 +10,8 @@ vector<int> filter_ver(const vector<int> &vec,
     vector<int> nvec;
     vector<int>::const_iterator iter = vec.begin();
 
-    while((iter = find_if(iter, vec.end(), bind2nd(lt, val))) != vec.end()){
+    while((iter = find_if(iter, vec.end(), bind2nd(lt, val))) != vec.end()){    
+        //bind2nd将less<int>,即“小于”的两个参数的第二个参数绑定为val
         nvec.push_back(*iter);
         iter++;
     }
