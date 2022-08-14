@@ -1,10 +1,21 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "Triangular_iterator.h"
 using namespace std;
 
 class Triangular{
+    friend class Triangular_iterator;       //friend机制
     public:
+        typedef Triangular_iterator iterator;//嵌套类型
+
+        Triangular_iterator begin() const{
+            return Triangular_iterator(_beg_pos);
+        }
+        Triangular_iterator end() const{
+            return Triangular_iterator(_beg_pos+_length);
+        }
+
         Triangular(int len = 1, int bp = 1);
         static bool is_elem(int);
         static void gen_elements(int length);
