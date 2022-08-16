@@ -1,3 +1,5 @@
+#pragma once
+#include "Triangular.h"
 
 class Triangular_iterator{
     public:

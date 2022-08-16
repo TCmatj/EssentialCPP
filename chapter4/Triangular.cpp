@@ -1,6 +1,7 @@
 #include "Triangular.h"
+#include "Triangular_iterator.h"
 
-vector<int> Triangular::_elems;//这句是必须的
+vector<int> Triangular::_elems;         //static data member只有唯一实体,必须在cpp中提供清楚的定义
 
 Triangular::Triangular(int len, int bp)
     : _name("Triangular"),

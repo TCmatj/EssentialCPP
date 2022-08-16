@@ -1,8 +1,12 @@
+#pragma once
+#include <string>
 #include <iostream>
 #include <vector>
-#include <string>
 #include "Triangular_iterator.h"
+
 using namespace std;
+
+class Triangular_iterator;
 
 class Triangular{
     friend class Triangular_iterator;       //friend机制
@@ -16,6 +20,9 @@ class Triangular{
             return Triangular_iterator(_beg_pos+_length);
         }
 
+        static int elem_size(){ return _elems.size(); }
+        static int max_elems(){ return _max_elems; }
+        
         Triangular(int len = 1, int bp = 1);
         static bool is_elem(int);
         static void gen_elements(int length);
