@@ -93,3 +93,27 @@ bool Triangular::next( int &value ){
     }
     return false;
 }
+
+ostream& operator<<(ostream &os,const Triangular &rhs){
+    os << "(" << rhs.beg_pos() << ", "
+       << rhs.length() << " )";
+
+    //rhs.display(rhs.length(), rhs.beg_pos(), os);
+    return os;
+}
+
+istream& operator>>(istream &is,Triangular &rhs){
+    char ch1,ch2;
+    int bp,len;
+    
+    //假设输入为(3,6) 6 10 15 21 28 36
+    //那么ch1 == '(' ，bp == 3，ch2 == ')'，len == 6
+    is >> ch1 >> bp >> ch2 >> len;
+
+    //设定rhs的三个数据成员
+    rhs.beg_pos(bp);
+    rhs.length(len);
+    rhs.next_reset();
+
+    return is;
+}
