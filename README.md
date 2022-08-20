@@ -32,4 +32,5 @@
     7. 合作关系必须建立在友谊的基础上
     8. 实现一个 copy assignment operator
     9. 实现一个 function object
-    10. 重载 iostream 运算符
+    10.重载 iostream 运算符
+    11.指针，指向 Class Member Function
