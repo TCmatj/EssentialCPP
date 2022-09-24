@@ -17,27 +17,14 @@ class num_sequence{
     public:
         virtual ~num_sequence(){};
 
-        virtual int             elem(int pos) const=0;                  //返回pos位置上的元素
-        virtual const char*     what_am_i() const=0;                    //返回确切的数据类型
-        virtual ostream&        print(ostream &os=cout) const=0;        //将所有元素写入os
-        static int              max_elems(){return _max_elems;}         //返回所支持的最大位置值
+        virtual int             elem(int pos) const=0;                  		 //返回pos位置上的元素
+        virtual const char*     what_am_i() const=0;                    		 //返回确切的数据类型
+        virtual ostream&        print(ostream &os=cout) const=0;        		 //将所有元素写入os
+        static int              max_elems(){return _max_elems;}        			 //返回所支持的最大位置值
     
     protected:
-        virtual void            gen_elems(int pos) const=0;             //产生知道pos位置的所有元素
-        bool                    check_integrity(int pos) const;         //检查pos是否为有效位置
+        virtual void            gen_elems(int pos) const=0;          			 //产生知道pos位置的所有元素
+        bool                    check_integrity(int pos, int size) const;        //检查pos是否为有效位置
 
         const static int        _max_elems = 1024;
 };
-
-bool num_sequence::check_integrity(int pos) const{
-    if(pos <= 0||pos > _max_elems){
-        cerr << "!! invalid position: " << pos
-             << " Cannot honor request\n";
-        return false;
-    }
-    return true;
-}
-
-ostream& operator<<(ostream &os, const num_sequence &ns){
-    return ns.print(os);
-}
