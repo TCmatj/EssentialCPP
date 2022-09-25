@@ -29,3 +29,5 @@ class num_sequence{
 
         const static int        _max_elems = 1024;
 };
+
+
