@@ -47,5 +47,5 @@
 	9. 在派生类中定义一个虚函数
 	10.运行时的类型鉴定机制
 
-## 第六章 [以template进行编程](./chapter6/以template进行编程)
+## 第六章 [以template进行编程](./chapter6/以template进行编程.md)
 
