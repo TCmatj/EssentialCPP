@@ -71,3 +71,90 @@ BTnode( const valType &val){
             b. 函数体内会以拷贝赋值运算将 val 复制给 _val
 
 ## 4 实现一个类模板
+
+每当我们插入某个新值，都必须建立BTnode对象、加以初始化、将它链接至二叉树的某处。我们必须自行以new表达式和delete表达式来管理每个节点的内存分配和释放。
+以insert()为例，如果根结点之值尚未设定，它会由程序的空闲空间分配一块新的BTnode需要的内存空间。否则就调用BTnode的insert_value()，将新值插入二叉树中：
+
+```
+template <typename elemType>
+inline void
+BinaryTree<elemType>::
+insert( const elemType &elem){
+		if( !_root )
+				_root = new BTnode<elemType>(elem);
+		else _root->insert_value(elem);
+}
+```
+
+new 表达式可以分解为两个操作：
+1. 向程序的空闲空间请求内存。如果分配到足够的空间就返回一个指针，指向新对象
+2. 如果第一步成功了，且外部指定了一个初值，这个对象便会以最适当的方式被初始化
+
+移除某节点更为复杂。一般的算法是：
+1. 以节点的右子树取代节点本身
+2. 搬迁左子节点本身，使它成为右子节点的左子树的叶节点
+
+特例：移除根节点
+
+```
+template <typename elemType>
+void
+BinaryTree<elemType>::
+remove_root(){
+	if( !_root) return;
+
+	BTnode<elemType> *tmp = _root;
+	if( _root->_rchild ){
+		_root = _root->_rchild;
+
+		if( tmp->_lchild ){
+			BTnode<elemType> *lc = tmp->_lchild;
+			BTnode<elemType> *newlc = _root->_lchild;
+			if( !newlc )
+				//没有任何子树
+				_root->_lchild = lc;
+
+			//lchild_leaf会便利整个左子树
+			//寻找某个可接上去的null左子节点
+			//lchild_leaf是个static member function
+			else BTnode<elemType>::lchild_leaf( lc, newlc );
+		}
+	}
+	else _root = _root->_lchild;
+
+	delete tmp;		//已经移去先前那个根节点了
+}
+```
+```
+// remove_value()移除非根节点
+template <typename valType>
+void BTnode<valType>::
+remove_value( const valType &val, BTnode *&prev){
+	if( val < _val ){
+		if( !_lchild )	return;	//不在此二叉树中
+		else _lchild->remove_value( val, _lchild );
+	}else if ( val > _val ){
+		if( !_rchild )	return;	//不在此二叉树中
+		else _rchild->remove_value( val, _rchild );
+	}else{
+		//找到了
+		//重置此树，然后删除这一节点
+
+		if ( _rchild ){
+			//右孩子存在
+			prev = _rchild;
+			if( _lchild )
+				//左孩子也存在
+				if ( ! prev->_lchild )
+					   //右孩子的左孩子不存在，则设置让左孩子取代这个空位置
+					   prev->_lchild = _lchild;
+				else BTnode<valType>::lchild_leaf(_lchild,prev->_lchild);	//否则将左孩子放到右子树中的最左下角
+		}
+		else prev = _lchild;	//右孩子不存在就直接等于左孩子
+		delete this;
+	}
+}
+```
+上面的函数中prev需要设置为指针的引用
+- 以指针来传递的话，更改的是指针所指的，而不是其本身
+- 为了改变指针本身，需要再加一个引用，这样不仅能改变指针本身，也能改变指针指向的对象
