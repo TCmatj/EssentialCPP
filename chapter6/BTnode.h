@@ -12,7 +12,7 @@ class BTnode{
     	void insert_value( const valType&);
 		void lchild_leaf( BTnode *, BTnode *);
 		void remove_value( const valType&, BTnode *&);
-		void preorder();
+		void preorder( BTnode *);
 
     private:
         valType     _val;
@@ -87,12 +87,11 @@ remove_value( const valType &val, BTnode *&prev){
 }
 
 template <typename valType>
-void BTnode<valType>::
-preorder(){//, std::ostream &os
-	if( this ){
+void BTnode<valType>::preorder( BTnode*pt ){//, std::ostream &os
+	if( pt ){
 		//display_val( pt, os);
-		cout << string(this->_val) << ' ';
-		if(this->_lchild)	preorder();
-		if(this->_rchild)	preorder();
+		cout << string(pt->_val) << ' ';
+		if(pt->_lchild)	preorder(pt->_lchild);
+		if(pt->_rchild)	preorder(pt->_rchild);
 	}
 }

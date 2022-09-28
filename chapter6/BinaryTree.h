@@ -107,5 +107,5 @@ clear( BTnode<elemType> *pt){
 template <typename elemType>
 void BinaryTree<elemType>::
 pre(){
-    this->_root->preorder();
+    this->_root->preorder(this->_root);
 }
